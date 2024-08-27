@@ -1,0 +1,48 @@
+{% extends 'enroll/base.html' %} {% block content %}
+<div class="row">
+  <div class="col-sm-4">
+    <h3 class='text-center alert alert-info'>Add New Student</h3>
+    <form action="" method="POST" class="form-control" style='border:3px groove #003135'>
+      {% csrf_token %} {{form.as_p}}
+      <input type="submit" class="btn btn-success" value="Add" />
+    </form>
+  </div>
+  <div class="col-sm-8">
+    <h4 class='text-center alert alert-info'>Student information</h4>
+    {% if stu %}
+     <table class="table" style='border:1px groove #2c2e3a'>
+        <thead>
+          <tr>
+            <th scope="col">id</th>
+            <th scope="col">Name</th>
+            <th scope="col">Email</th>
+            <th scope="col">contact</th>
+            <th scope="col">city</th>
+            <th scope="col">Action</th>
+            
+          </tr>
+        </thead>
+        <tbody>
+          {% for st in stu %}
+          <tr>
+            <th scope="row">{{st.id}}</th>
+            <td>{{st.name}}</td>
+            <td>{{st.email}}</td>
+            <td>{{st.contact}}</td>
+            <td>{{st.city}}</td>
+            <td>
+                <a href="{% url 'updatedata' st.id %}" class='btn btn-warning btn-sm'>Edit</a>
+                <a href="{% url 'deletedata' st.id %}" class='btn btn-danger btn-sm'>Delete</a>
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+
+    {%else%}
+    <h2 class='text-center alert alert-secondary'>Record Not Found</h2> 
+    {% endif %}
+    </form>
+  </div>
+</div>
+{% endblock content %}
